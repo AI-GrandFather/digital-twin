@@ -8,6 +8,8 @@ e8e91da 2026-06-24 20:21 PKT Phase 1 — updated COMMITS.md
 904d0a8 2026-06-24 20:42 PKT Phase 1 — passed Groq API key and configs to deployment script in GitHub Actions
 629c7e9 2026-06-24 20:43 PKT Phase 1 — updated COMMITS.md
 a7aef74 2026-06-24 20:57 PKT Phase 1 — removed AWS Bedrock client and fallback logic from the backend server
+310bdb8 2026-06-24 20:58 PKT Phase 1 — updated COMMITS.md
+2c05f7e 2026-06-24 22:05 PKT Phase 1 — added custom avatar and fixed keyboard input focus issue
 
 
 
