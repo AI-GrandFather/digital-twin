@@ -14,6 +14,8 @@ a7aef74 2026-06-24 20:57 PKT Phase 1 — removed AWS Bedrock client and fallback
 c7c5d34 2026-06-24 22:10 PKT Phase 1 — updated site favicon.ico
 6ea6fb2 2026-06-24 22:28 PKT Phase 1 — decluttered and redesigned UI with premium clean layout
 5c6a446 2026-06-24 22:29 PKT Phase 1 — updated COMMITS.md
+5b4d0b2 2026-06-24 22:34 PKT Phase 1 — added dark/light mode toggle and shrunk empty state layout
+8c364a7 2026-06-24 22:34 PKT Phase 1 — updated COMMITS.md
 
 
 
