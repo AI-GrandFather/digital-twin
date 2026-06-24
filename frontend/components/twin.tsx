@@ -11,6 +11,8 @@ import {
     RotateCcw,
     SendHorizontal,
     Sparkles,
+    Sun,
+    Moon,
     UserRound,
 } from 'lucide-react';
 
@@ -64,6 +66,25 @@ export default function Twin() {
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const streamedResponseRef = useRef('');
     const [hasAvatar, setHasAvatar] = useState(false);
+    const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            setTheme(savedTheme);
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        } else if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const nextTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(nextTheme);
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+    };
 
     useEffect(() => {
         fetch('/avatar.png', { method: 'HEAD' })
@@ -229,6 +250,15 @@ export default function Twin() {
                         title="Start a new conversation"
                     >
                         <RotateCcw size={17} strokeWidth={1.8} />
+                    </button>
+                    <button
+                        className="icon-button"
+                        type="button"
+                        onClick={toggleTheme}
+                        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                        title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                    >
+                        {theme === 'light' ? <Moon size={17} strokeWidth={1.8} /> : <Sun size={17} strokeWidth={1.8} />}
                     </button>
                 </div>
             </header>
