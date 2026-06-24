@@ -12,6 +12,8 @@ a7aef74 2026-06-24 20:57 PKT Phase 1 — removed AWS Bedrock client and fallback
 2c05f7e 2026-06-24 22:05 PKT Phase 1 — added custom avatar and fixed keyboard input focus issue
 5ba8881 2026-06-24 22:06 PKT Phase 1 — updated COMMITS.md
 c7c5d34 2026-06-24 22:10 PKT Phase 1 — updated site favicon.ico
+6ea6fb2 2026-06-24 22:28 PKT Phase 1 — decluttered and redesigned UI with premium clean layout
+5c6a446 2026-06-24 22:29 PKT Phase 1 — updated COMMITS.md
 
 
 
