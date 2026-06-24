@@ -63,6 +63,13 @@ export default function Twin() {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const streamedResponseRef = useRef('');
+    const [hasAvatar, setHasAvatar] = useState(false);
+
+    useEffect(() => {
+        fetch('/avatar.png', { method: 'HEAD' })
+            .then((res) => setHasAvatar(res.ok))
+            .catch(() => setHasAvatar(false));
+    }, []);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -174,7 +181,9 @@ export default function Twin() {
             ]);
         } finally {
             setIsLoading(false);
-            inputRef.current?.focus();
+            setTimeout(() => {
+                inputRef.current?.focus();
+            }, 100);
         }
     };
 
@@ -194,8 +203,12 @@ export default function Twin() {
         <section className="twin-shell" aria-label="Athar's digital twin">
             <header className="twin-header">
                 <div className="twin-identity">
-                    <div className="twin-mark" aria-hidden="true">
-                        <span>A</span>
+                    <div className="twin-mark" aria-hidden="true" style={{ overflow: 'hidden' }}>
+                        {hasAvatar ? (
+                            <img src="/avatar.png" alt="Athar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        ) : (
+                            <span>A</span>
+                        )}
                     </div>
                     <div>
                         <p className="eyebrow">ATHAR / DIGITAL TWIN</p>
@@ -242,8 +255,12 @@ export default function Twin() {
                 <div className="messages" aria-live="polite">
                     {messages.length === 0 ? (
                         <div className="empty-state">
-                            <div className="empty-icon" aria-hidden="true">
-                                <Bot size={22} strokeWidth={1.7} />
+                            <div className="empty-icon" aria-hidden="true" style={{ overflow: 'hidden' }}>
+                                {hasAvatar ? (
+                                    <img src="/avatar.png" alt="Athar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                ) : (
+                                    <Bot size={22} strokeWidth={1.7} />
+                                )}
                             </div>
                             <p className="empty-kicker">A product-minded conversation</p>
                             <h2>What are you building?</h2>
@@ -275,8 +292,12 @@ export default function Twin() {
                                     key={message.id}
                                 >
                                     {message.role === 'assistant' && (
-                                        <div className="message-avatar assistant-avatar" aria-hidden="true">
-                                            <Bot size={16} strokeWidth={1.8} />
+                                        <div className="message-avatar assistant-avatar" aria-hidden="true" style={{ overflow: 'hidden' }}>
+                                            {hasAvatar ? (
+                                                <img src="/avatar.png" alt="Athar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            ) : (
+                                                <Bot size={16} strokeWidth={1.8} />
+                                            )}
                                         </div>
                                     )}
                                     <div className="message-content">
@@ -301,8 +322,12 @@ export default function Twin() {
                                 (message) => message.role === 'assistant' && message.content,
                             ) && (
                                     <div className="message-row assistant">
-                                        <div className="message-avatar assistant-avatar" aria-hidden="true">
-                                            <Bot size={16} strokeWidth={1.8} />
+                                        <div className="message-avatar assistant-avatar" aria-hidden="true" style={{ overflow: 'hidden' }}>
+                                            {hasAvatar ? (
+                                                <img src="/avatar.png" alt="Athar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            ) : (
+                                                <Bot size={16} strokeWidth={1.8} />
+                                            )}
                                         </div>
                                         <div className="typing-indicator" aria-label="Athar is thinking">
                                             <span />
