@@ -29,23 +29,16 @@ app.add_middleware(
 )
 
 
-# Initialize AI Client (OpenAI-compatible client or Bedrock fallback)
+# Initialize AI Client (OpenAI-compatible client)
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
-if OPENAI_API_KEY:
-    import openai
-    api_base = os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1")
-    ai_client = openai.OpenAI(
-        api_key=OPENAI_API_KEY,
-        base_url=api_base
-    )
-    MODEL_ID = os.getenv("OPENAI_MODEL_ID", "gpt-4o-mini")
-else:
-    bedrock_client = boto3.client(
-        service_name="bedrock-runtime", 
-        region_name=os.getenv("DEFAULT_AWS_REGION", "us-east-1")
-    )
-    MODEL_ID = os.getenv("BEDROCK_MODEL_ID", "global.amazon.nova-2-lite-v1:0")
+import openai
+api_base = os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1")
+ai_client = openai.OpenAI(
+    api_key=OPENAI_API_KEY or "missing_key",
+    base_url=api_base
+)
+MODEL_ID = os.getenv("OPENAI_MODEL_ID", "gpt-4o-mini")
 
 
 
@@ -119,80 +112,50 @@ def save_conversation(session_id: str, messages: List[Dict]):
 
 
 def call_llm_stream(conversation: List[Dict], user_message: str):
-    """Call OpenAI-compatible model or Bedrock depending on configuration and stream the response chunks"""
-    if OPENAI_API_KEY:
-        # Build messages in standard ChatCompletion format
-        messages = [
-            {"role": "system", "content": prompt()}
-        ]
-        # Add conversation history
-        for msg in conversation[-50:]:
-            role = "assistant" if msg["role"] == "assistant" else "user"
-            messages.append({
-                "role": role,
-                "content": msg["content"]
-            })
-        # Add current user message
+    """Call OpenAI-compatible model and stream the response chunks"""
+    if not OPENAI_API_KEY:
+        yield "Error: OPENAI_API_KEY environment variable is not set on the server. Please configure it in your deployment variables/secrets."
+        return
+
+    # Build messages in standard ChatCompletion format
+    messages = [
+        {"role": "system", "content": prompt()}
+    ]
+    # Add conversation history
+    for msg in conversation[-50:]:
+        role = "assistant" if msg["role"] == "assistant" else "user"
         messages.append({
-            "role": "user",
-            "content": user_message
+            "role": role,
+            "content": msg["content"]
         })
-        
-        try:
-            response = ai_client.chat.completions.create(
-                model=MODEL_ID,
-                messages=messages,
-                temperature=0.7,
-                max_tokens=2000,
-                stream=True
-            )
-            for chunk in response:
-                if chunk.choices and len(chunk.choices) > 0:
-                    content = chunk.choices[0].delta.content
-                    if content:
-                        yield content
-        except Exception as e:
-            print(f"LLM API error in stream: {e}")
-            yield f"Error: {str(e)}"
-    else:
-        # Call AWS Bedrock converse_stream
-        messages = []
-        messages.append({
-            "role": "user", 
-            "content": [{"text": f"System: {prompt()}"}]
-        })
-        for msg in conversation[-50:]:
-            messages.append({
-                "role": msg["role"],
-                "content": [{"text": msg["content"]}]
-            })
-        messages.append({
-            "role": "user",
-            "content": [{"text": user_message}]
-        })
-        try:
-            response = bedrock_client.converse_stream(
-                modelId=MODEL_ID,
-                messages=messages,
-                inferenceConfig={
-                    "maxTokens": 2000,
-                    "temperature": 0.7,
-                    "topP": 0.9
-                }
-            )
-            for event in response.get("stream"):
-                if "contentBlockDelta" in event:
-                    text = event["contentBlockDelta"]["delta"]["text"]
-                    yield text
-        except ClientError as e:
-            print(f"Bedrock error in stream: {e}")
-            yield f"Bedrock error: {str(e)}"
+    # Add current user message
+    messages.append({
+        "role": "user",
+        "content": user_message
+    })
+    
+    try:
+        response = ai_client.chat.completions.create(
+            model=MODEL_ID,
+            messages=messages,
+            temperature=0.7,
+            max_tokens=2000,
+            stream=True
+        )
+        for chunk in response:
+            if chunk.choices and len(chunk.choices) > 0:
+                content = chunk.choices[0].delta.content
+                if content:
+                    yield content
+    except Exception as e:
+        print(f"LLM API error in stream: {e}")
+        yield f"LLM API Error: {str(e)}"
 
 
 @app.get("/")
 async def root():
     return {
-        "message": "AI Digital Twin API (Powered by OpenAI/Compatible)" if OPENAI_API_KEY else "AI Digital Twin API (Powered by AWS Bedrock)",
+        "message": "AI Digital Twin API (Powered by OpenAI/Compatible)",
         "memory_enabled": True,
         "storage": "S3" if USE_S3 else "local",
         "ai_model": MODEL_ID
@@ -205,7 +168,7 @@ async def health_check():
         "status": "healthy", 
         "use_s3": USE_S3,
         "ai_model": MODEL_ID,
-        "provider": "OpenAI/Compatible" if OPENAI_API_KEY else "Bedrock"
+        "provider": "OpenAI/Compatible"
     }
 
 
