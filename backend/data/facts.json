@@ -1,0 +1,93 @@
+{
+  "full_name": "Mian Muhammad Athar",
+  "name": "Athar",
+  "current_role": "Solo Product Engineer",
+  "location": "Sahiwal Division, Punjab, Pakistan",
+  "email": "atharmushtaq9@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/mianathar/",
+  "portfolio": "https://portfolio-alpha-five-1ka0417h0y.vercel.app/",
+  "availability": "Open to freelance contracts for mobile apps, SaaS builds, and AI-integrated product work",
+  "specialties": [
+    "End-to-end mobile product development with Flutter and SwiftUI",
+    "iOS App Store delivery, subscriptions, in-app purchases, and monetization",
+    "Multi-location SaaS platforms with Next.js, Supabase, and TypeScript",
+    "AI-integrated product features using OpenAI, Claude, and Gemini APIs",
+    "Product architecture, delivery planning, deployment, and production hardening"
+  ],
+  "technical_stack": {
+    "mobile": [
+      "Flutter",
+      "Dart",
+      "SwiftUI",
+      "SpriteKit",
+      "StoreKit",
+      "RevenueCat",
+      "AdMob",
+      "Firebase"
+    ],
+    "web_and_saas": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "PWA",
+      "Vercel"
+    ],
+    "backend_and_data": [
+      "Supabase",
+      "PostgreSQL",
+      "SQLite",
+      "Express.js",
+      "Authentication",
+      "Reporting"
+    ],
+    "ai": [
+      "OpenAI API",
+      "OpenAI Vision",
+      "Claude API",
+      "Gemini API",
+      "Agentic development governance"
+    ],
+    "cloud": [
+      "AWS",
+      "Vercel",
+      "Azure",
+      "GCP"
+    ]
+  },
+  "selected_products": [
+    {
+      "name": "FurrFind AI",
+      "status": "Live on the iOS App Store",
+      "description": "Flutter pet breed-identification app using OpenAI Vision, RevenueCat, AdMob, Firebase, local scan history, daily scan limits, and premium AI care chat."
+    },
+    {
+      "name": "Block Crush Puzzle",
+      "status": "Live on the iOS App Store",
+      "description": "SwiftUI and SpriteKit puzzle game with 120Hz gameplay, power-ups, Game Center leaderboards, and StoreKit in-app purchases."
+    },
+    {
+      "name": "AuraPOS",
+      "status": "Live deployed",
+      "description": "Multi-location SaaS POS platform with checkout, inventory, COGS tracking, reporting, stock transfers, audit logs, and offline-first PWA foundations."
+    },
+    {
+      "name": "Soleris Ledger",
+      "status": "Internal business intelligence dashboard",
+      "description": "Operational dashboard for P&L, ROAS, inventory turnover, budgets, and multi-currency reporting."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Engineering in Electronic Engineering",
+      "institution": "Ghulam Ishaq Khan Institute of Engineering Sciences and Technology (GIKI), Pakistan",
+      "year": "2017",
+      "highlights": "Five academic distinctions; final-year capstone on a wall-climbing robot with autonomous navigation and real-time sensor feedback."
+    }
+  ],
+  "experience_highlights": [
+    "Solo Product Engineer since January 2025, shipping mobile, SaaS, and AI-integrated products end to end.",
+    "Co-owner of eAdvizers, operating e-commerce brands across US and UK markets through Amazon and Shopify.",
+    "Embedded Systems Intern at u-blox, working on LTE, Raspberry Pi, microcontroller, Python, Shell, and IoT connectivity prototypes."
+  ]
+}

@@ -1,0 +1,9 @@
+I am Mian Muhammad Athar, a solo product engineer who takes products from a clear brief through architecture, implementation, deployment, and post-launch iteration.
+
+My current work spans Flutter and SwiftUI mobile applications, native iOS games, Next.js and Supabase SaaS systems, and AI-integrated product features using OpenAI, Claude, and Gemini APIs. I have two live iOS apps on the App Store, a live multi-location SaaS POS platform, and internal operational tools used in e-commerce workflows.
+
+I work specification first. For a serious project, I define the product requirements, technical requirements, architecture, data model, phases, verification gates, and deployment checks before treating work as ready to ship. I use AI coding tools as scoped implementation partners, while retaining responsibility for system design, review, safety, and delivery quality.
+
+Before focusing on software, I operated e-commerce businesses across US and UK markets. That experience informs how I approach products: I care about the operator workflow, margins, fulfillment, inventory, support burden, and what will work after launch, not only the implementation.
+
+I am open to freelance work on mobile apps, iOS products, SaaS platforms, AI-integrated workflows, internal tools, product architecture, App Store delivery, and deployment handoff.
